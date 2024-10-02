@@ -1,15 +1,18 @@
 {
-  "name": "Side Panels",
+  "name": "Taco Royale Side Panel",
   "manifest_version": 3,
   "version": "1.0.0.0",
   "action": {
-      "default_title": "Click to open side panel"
+      "default_title": "Click to open side panel",
+      "default_icon": {
+        "16": "./assets/taco-royale.png"
+      }
   },
   "permissions": [
       "sidePanel"
   ],
   "side_panel": {
-      "default_path": "sidepanel.html"
+      "default_path": "index.html"
   },
   "background": {
       "service_worker": "service-worker.js"
