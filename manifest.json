@@ -15,7 +15,6 @@
       "default_path": "index.html"
   },
   "background": {
-      "service_worker": "service-worker.js",
-      "scripts": ["script.js"]
+      "service_worker": "service-worker.js"
   }
 }

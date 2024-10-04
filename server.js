@@ -5,8 +5,8 @@ const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
 const app = express();
+const payloadData = require('./fixtures/index')
 
-// Allow all origins
 app.use(cors());
 
 // Environment configurations
@@ -27,213 +27,6 @@ const envConfig = {
       key: '/Users/tparsons/Desktop/certs/dify-data.api.authclient.gdcorp.tools.key'
   }
 };
-
-
-const difyHeader = [{
-  "raw": true,
-  "metric": "availability",
-  "aggregations": [
-      "hour",
-      "poll_id.keyword"
-  ],
-  "size": 0,
-  "filters": [
-      {
-          "field": "service",
-          "value": 4188,
-          "type": "term",
-          "fieldType": "number"
-      },
-      {
-          "field": "isStaged",
-          "value": false,
-          "type": "term",
-          "fieldType": "boolean"
-      }
-  ],
-  "startAt": "now-24h",
-  "endAt": "now"
-},{
-  "raw": true,
-  "metric": "availability",
-  "aggregations": [
-    "day",
-    "poll_id.keyword"
-  ],
-  "size": 0,
-  "filters": [
-    {
-      "field": "service",
-      "value": 4188, // Dify Header
-      "type": "term",
-      "fieldType": "number"
-    },
-    {
-      "field": "isStaged",
-      "value": false,
-      "type": "term",
-      "fieldType": "boolean"
-    }
-  ],
-  "startAt": "now-1w",
-  "endAt": "now"
-}]
-
-const difyRequest = [{
-"raw": true,
-"metric": "availability",
-"aggregations": [
-    "hour",
-    "poll_id.keyword"
-],
-"size": 0,
-"filters": [
-    {
-        "field": "service",
-        "value": 4353,
-        "type": "term",
-        "fieldType": "number"
-    },
-    {
-        "field": "isStaged",
-        "value": false,
-        "type": "term",
-        "fieldType": "boolean"
-    }
-],
-"startAt": "now-24h",
-"endAt": "now"
-},
-{
-"raw": true,
-"metric": "availability",
-"aggregations": [
-    "day",
-    "poll_id.keyword"
-],
-"size": 0,
-"filters": [
-    {
-        "field": "service",
-        "value": 4353,
-        "type": "term",
-        "fieldType": "number"
-    },
-    {
-        "field": "isStaged",
-        "value": false,
-        "type": "term",
-        "fieldType": "boolean"
-    }
-],
-"startAt": "now-1w",
-"endAt": "now"
-}
-]
-
-const difyShared = [{
-"raw": true,
-"metric": "availability",
-"aggregations": [
-    "hour",
-    "poll_id.keyword"
-],
-"size": 0,
-"filters": [
-    {
-        "field": "service",
-        "value": 4355,
-        "type": "term",
-        "fieldType": "number"
-    },
-    {
-        "field": "isStaged",
-        "value": false,
-        "type": "term",
-        "fieldType": "boolean"
-    }
-],
-"startAt": "now-24h",
-"endAt": "now"
-},
-{
-"raw": true,
-"metric": "availability",
-"aggregations": [
-    "day",
-    "poll_id.keyword"
-],
-"size": 0,
-"filters": [
-    {
-        "field": "service",
-        "value": 4355,
-        "type": "term",
-        "fieldType": "number"
-    },
-    {
-        "field": "isStaged",
-        "value": false,
-        "type": "term",
-        "fieldType": "boolean"
-    }
-],
-"startAt": "now-1w",
-"endAt": "now"
-}]
-
-const marketingHub = [{
-    "raw": true,
-    "metric": "availability",
-    "aggregations": [
-        "hour",
-        "poll_id.keyword"
-    ],
-    "size": 0,
-    "filters": [
-        {
-            "field": "service",
-            "value": 4091,
-            "type": "term",
-            "fieldType": "number"
-        },
-        {
-            "field": "isStaged",
-            "value": false,
-            "type": "term",
-            "fieldType": "boolean"
-        }
-    ],
-    "startAt": "now-24h",
-    "endAt": "now"
-},
-{
-    "raw": true,
-    "metric": "availability",
-    "aggregations": [
-        "day",
-        "poll_id.keyword"
-    ],
-    "size": 0,
-    "filters": [
-        {
-            "field": "service",
-            "value": 4091,
-            "type": "term",
-            "fieldType": "number"
-        },
-        {
-            "field": "isStaged",
-            "value": false,
-            "type": "term",
-            "fieldType": "boolean"
-        }
-    ],
-    "startAt": "now-1w",
-    "endAt": "now"
-}]
-
-const payloadData = [...difyHeader, ...difyRequest, ...difyShared, ...marketingHub]
 
 app.use(express.json());
 
@@ -271,8 +64,8 @@ app.post('/get-spaq', async (req, res) => {
         };
 
       try {
-        const responses = await Promise.all(payloadData.map(async (d,i) => {
-          return axios.post("https://spaq-api.int.gdcorp.tools/metrics", d, { headers: spaqHeaders })
+        const responses = await Promise.all(payloadData.map(async (data,i) => {
+          return axios.post("https://spaq-api.int.gdcorp.tools/metrics", data, { headers: spaqHeaders })
         }))
         const data = await Promise.all(responses.map(response => {
           return response.data

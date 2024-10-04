@@ -1,5 +1,3 @@
-
-
 const difyHeader = [{
     "raw": true,
     "metric": "availability",
@@ -48,9 +46,9 @@ const difyHeader = [{
     ],
     "startAt": "now-1w",
     "endAt": "now"
-}]
-
-const difyRequest = [{
+  }]
+  
+  const difyRequest = [{
   "raw": true,
   "metric": "availability",
   "aggregations": [
@@ -74,8 +72,8 @@ const difyRequest = [{
   ],
   "startAt": "now-24h",
   "endAt": "now"
-},
-{
+  },
+  {
   "raw": true,
   "metric": "availability",
   "aggregations": [
@@ -99,10 +97,10 @@ const difyRequest = [{
   ],
   "startAt": "now-1w",
   "endAt": "now"
-}
-]
-
-const difyShared = [{
+  }
+  ]
+  
+  const difyShared = [{
   "raw": true,
   "metric": "availability",
   "aggregations": [
@@ -126,8 +124,8 @@ const difyShared = [{
   ],
   "startAt": "now-24h",
   "endAt": "now"
-},
-{
+  },
+  {
   "raw": true,
   "metric": "availability",
   "aggregations": [
@@ -151,6 +149,57 @@ const difyShared = [{
   ],
   "startAt": "now-1w",
   "endAt": "now"
-}]
-
-export { difyHeader, difyRequest, difyShared };
+  }]
+  
+  const marketingHub = [{
+      "raw": true,
+      "metric": "availability",
+      "aggregations": [
+          "hour",
+          "poll_id.keyword"
+      ],
+      "size": 0,
+      "filters": [
+          {
+              "field": "service",
+              "value": 4091,
+              "type": "term",
+              "fieldType": "number"
+          },
+          {
+              "field": "isStaged",
+              "value": false,
+              "type": "term",
+              "fieldType": "boolean"
+          }
+      ],
+      "startAt": "now-24h",
+      "endAt": "now"
+  },
+  {
+      "raw": true,
+      "metric": "availability",
+      "aggregations": [
+          "day",
+          "poll_id.keyword"
+      ],
+      "size": 0,
+      "filters": [
+          {
+              "field": "service",
+              "value": 4091,
+              "type": "term",
+              "fieldType": "number"
+          },
+          {
+              "field": "isStaged",
+              "value": false,
+              "type": "term",
+              "fieldType": "boolean"
+          }
+      ],
+      "startAt": "now-1w",
+      "endAt": "now"
+  }]
+  
+  export const payloadData = [...difyHeader, ...difyRequest, ...difyShared, ...marketingHub]
