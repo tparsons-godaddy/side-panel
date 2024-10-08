@@ -1,0 +1,53 @@
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.repos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Increased space between cards */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.repo-card {
+  background: #74b9ff;
+  color: white;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  width: 300px; /* Fixed width for cards */
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.repo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.repo-card a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.repo-card a:hover {
+  color: #d1e7ff; /* Even lighter blue on hover */
+}

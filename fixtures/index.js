@@ -201,5 +201,10 @@ const difyHeader = [{
       "startAt": "now-1w",
       "endAt": "now"
   }]
-  
-  export const payloadData = [...difyHeader, ...difyRequest, ...difyShared, ...marketingHub]
+
+  module.exports = {
+    difyHeader,
+    difyRequest,
+    difyShared,
+    marketingHub
+  }

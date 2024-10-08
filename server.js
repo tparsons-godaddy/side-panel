@@ -5,7 +5,7 @@ const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
 const app = express();
-const payloadData = require('./fixtures/index')
+const data = require('./fixtures/index')
 
 app.use(cors());
 
@@ -27,6 +27,13 @@ const envConfig = {
       key: '/Users/tparsons/Desktop/certs/dify-data.api.authclient.gdcorp.tools.key'
   }
 };
+
+const payloadData = [
+  ...data.difyHeader,
+  ...data.difyRequest,
+  ...data.difyShared,
+  ...data.marketingHub
+];
 
 app.use(express.json());
 
